@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QalamAI - API Documentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <style>
+    .api-page { max-width: 960px; margin: 0 auto; padding: 48px 24px; }
+    .api-header { text-align: center; margin-bottom: 48px; }
+    .api-header .logo { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .api-header .logo-icon { width: 48px; height: 48px; background: var(--gold); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; color: var(--dark-navy); }
+    .api-header .logo-text { font-size: 1.8rem; font-weight: 700; color: var(--dark-navy); }
+    .api-header p { color: var(--medium-gray); font-size: 1.1rem; }
+    .endpoint { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-sm); margin-bottom: 24px; overflow: hidden; }
+    .endpoint-header { padding: 20px 24px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--light-gray); cursor: pointer; }
+    .endpoint-header:hover { background: rgba(212, 175, 55, 0.03); }
+    .method { padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; font-family: var(--font-mono); }
+    .method.get { background: #E3F2FD; color: var(--info); }
+    .method.post { background: #E8F5E9; color: var(--success); }
+    .method.delete { background: #FFEBEE; color: var(--error); }
+    .endpoint-path { font-family: var(--font-mono); font-size: 0.95rem; font-weight: 500; color: var(--dark-navy); }
+    .endpoint-desc { color: var(--medium-gray); font-size: 0.85rem; margin-left: auto; }
+    .endpoint-body { padding: 24px; display: none; border-top: 1px solid var(--light-gray); }
+    .endpoint-body.open { display: block; }
+    .endpoint-body h4 { font-size: 0.85rem; color: var(--dark-navy); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .code-block { background: var(--dark-navy); color: #E0E0E0; padding: 16px 20px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.6; overflow-x: auto; margin-bottom: 20px; }
+    .code-block .key { color: var(--light-gold); }
+    .code-block .string { color: #81C784; }
+    .code-block .number { color: #64B5F6; }
+    .param-table { width: 100%; margin-bottom: 20px; }
+    .param-table th { text-align: left; padding: 8px 12px; font-size: 0.72rem; color: var(--medium-gray); border-bottom: 2px solid var(--light-gray); }
+    .param-table td { padding: 8px 12px; font-size: 0.85rem; border-bottom: 1px solid var(--light-gray); }
+    .param-table .param-name { font-family: var(--font-mono); color: var(--dark-navy); font-weight: 500; }
+    .param-table .param-type { font-family: var(--font-mono); color: var(--gold); font-size: 0.8rem; }
+    .param-table .param-required { font-size: 0.72rem; font-weight: 600; }
+    .param-table .required { color: var(--error); }
+    .param-table .optional { color: var(--medium-gray); }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--gold); font-weight: 500; margin-bottom: 24px; }
+    .back-link:hover { color: var(--dark-gold); }
+  </style>
+</head>
+<body>
+  <div class="api-page">
+    <a href="/" class="back-link">&larr; Back to Dashboard</a>
+
+    <div class="api-header">
+      <div class="logo">
+        <div class="logo-icon">Q</div>
+        <span class="logo-text">QalamAI</span>
+      </div>
+      <h1 style="font-size: 1.5rem; margin-bottom: 8px;">API Documentation</h1>
+      <p>RESTful API for Arabic AI text generation, model management, and evaluation.</p>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggleEndpoint(this)">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/api/health</span>
+        <span class="endpoint-desc">Health check and model status</span>
+      </div>
+      <div class="endpoint-body">
+        <h4>Response</h4>
+        <div class="code-block">
+{<br>
+&nbsp;&nbsp;<span class="key">"status"</span>: <span class="string">"healthy"</span>,<br>
+&nbsp;&nbsp;<span class="key">"model_loaded"</span>: <span class="number">false</span>,<br>
+&nbsp;&nbsp;<span class="key">"version"</span>: <span class="string">"1.0.0"</span><br>
+}
+        </div>
+      </div>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggleEndpoint(this)">
+        <span class="method post">POST</span>
+        <span class="endpoint-path">/api/generate</span>
+        <span class="endpoint-desc">Generate text from prompt</span>
+      </div>
+      <div class="endpoint-body">
+        <h4>Request Parameters</h4>
+        <table class="param-table">
+          <thead>
+            <tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="param-name">prompt</td>
+              <td class="param-type">string</td>
+              <td class="param-required required">Required</td>
+              <td>The input text prompt</td>
+            </tr>
+            <tr>
+              <td class="param-name">temperature</td>
+              <td class="param-type">float</td>
+              <td class="param-required optional">Optional</td>
+              <td>Sampling temperature (0.0 - 2.0, default: 0.7)</td>
+            </tr>
+            <tr>
+              <td class="param-name">max_tokens</td>
+              <td class="param-type">integer</td>
+              <td class="param-required optional">Optional</td>
+              <td>Maximum tokens to generate (default: 512)</td>
+            </tr>
+            <tr>
+              <td class="param-name">top_p</td>
+              <td class="param-type">float</td>
+              <td class="param-required optional">Optional</td>
+              <td>Nucleus sampling parameter (default: 0.9)</td>
+            </tr>
+            <tr>
+              <td class="param-name">stream</td>
+              <td class="param-type">boolean</td>
+              <td class="param-required optional">Optional</td>
+              <td>Enable streaming response (default: false)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>Example Request</h4>
+        <div class="code-block">
+POST /api/generate<br>
+Content-Type: application/json<br><br>
+{<br>
+&nbsp;&nbsp;<span class="key">"prompt"</span>: <span class="string">"اكتب قصيدة عن الربيع"</span>,<br>
+&nbsp;&nbsp;<span class="key">"temperature"</span>: <span class="number">0.7</span>,<br>
+&nbsp;&nbsp;<span class="key">"max_tokens"</span>: <span class="number">512</span><br>
+}
+        </div>
+
+        <h4>Example Response</h4>
+        <div class="code-block">
+{<br>
+&nbsp;&nbsp;<span class="key">"response"</span>: <span class="string">"في الربيع تتفتح الأزهار..."</span>,<br>
+&nbsp;&nbsp;<span class="key">"tokens_used"</span>: <span class="number">128</span>,<br>
+&nbsp;&nbsp;<span class="key">"latency_ms"</span>: <span class="number">450</span><br>
+}
+        </div>
+      </div>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggleEndpoint(this)">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/api/stats</span>
+        <span class="endpoint-desc">Server statistics</span>
+      </div>
+      <div class="endpoint-body">
+        <h4>Response</h4>
+        <div class="code-block">
+{<br>
+&nbsp;&nbsp;<span class="key">"total_requests"</span>: <span class="number">0</span>,<br>
+&nbsp;&nbsp;<span class="key">"avg_latency"</span>: <span class="number">0</span>,<br>
+&nbsp;&nbsp;<span class="key">"active_models"</span>: <span class="number">0</span>,<br>
+&nbsp;&nbsp;<span class="key">"buffer_size"</span>: <span class="number">0</span><br>
+}
+        </div>
+      </div>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggleEndpoint(this)">
+        <span class="method post">POST</span>
+        <span class="endpoint-path">/api/evaluate</span>
+        <span class="endpoint-desc">Run model evaluation</span>
+      </div>
+      <div class="endpoint-body">
+        <h4>Request Parameters</h4>
+        <table class="param-table">
+          <thead>
+            <tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="param-name">test_set</td>
+              <td class="param-type">string</td>
+              <td class="param-required optional">Optional</td>
+              <td>Path to test dataset (default: built-in test set)</td>
+            </tr>
+            <tr>
+              <td class="param-name">metrics</td>
+              <td class="param-type">array</td>
+              <td class="param-required optional">Optional</td>
+              <td>List of metrics to evaluate (default: all)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-header" onclick="toggleEndpoint(this)">
+        <span class="method post">POST</span>
+        <span class="endpoint-path">/api/update-model</span>
+        <span class="endpoint-desc">Trigger model update from learning buffer</span>
+      </div>
+      <div class="endpoint-body">
+        <h4>Description</h4>
+        <p style="color: var(--dark-gray); font-size: 0.9rem; margin-bottom: 16px;">
+          Processes validated entries from the learning buffer and triggers an incremental training run.
+          This is an admin-only endpoint.
+        </p>
+        <h4>Response</h4>
+        <div class="code-block">
+{<br>
+&nbsp;&nbsp;<span class="key">"status"</span>: <span class="string">"update_started"</span>,<br>
+&nbsp;&nbsp;<span class="key">"entries_processed"</span>: <span class="number">42</span>,<br>
+&nbsp;&nbsp;<span class="key">"estimated_time"</span>: <span class="string">"15 minutes"</span><br>
+}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleEndpoint(header) {
+      const body = header.nextElementSibling;
+      body.classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

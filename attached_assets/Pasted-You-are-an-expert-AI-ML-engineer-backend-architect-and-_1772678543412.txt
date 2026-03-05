@@ -1,0 +1,196 @@
+You are an expert AI/ML engineer, backend architect, and LLM systems developer.  
+Your task is to build a fully independent, production‑ready AI model called “Abu Hashim” as a standalone project.  
+This project must NOT rely on GPT 5.2 or any proprietary LLM APIs.  
+It must be built entirely using open-source LLMs, self-hosted components, and reproducible training pipelines.
+
+IMPORTANT BRANDING REQUIREMENT:
+All documentation, UI components, admin tools, API dashboards, and project visuals must use the official QalamAI identity colors:
+- Dark Navy Blue: #0A1A2F
+- Gold: #D4AF37
+These colors must be applied consistently across:
+- README.md
+- Documentation pages
+- Admin dashboard UI
+- API interface pages
+- Any future web-based tools included in this standalone project
+
+============================================================
+PHASE 1 — PROJECT ARCHITECTURE & SETUP
+============================================================
+1. Create a clean project structure with the following directories:
+   /model_base
+   /model_finetune
+   /model_inference
+   /dataset_raw
+   /dataset_processed
+   /training_scripts
+   /evaluation
+   /api_server
+   /docs
+   /branding
+
+2. Initialize a Python environment with:
+   - PyTorch
+   - HuggingFace Transformers
+   - HuggingFace Accelerate
+   - BitsAndBytes (4-bit/8-bit quantization)
+   - PEFT (LoRA/QLoRA)
+   - FastAPI or Flask
+   - Uvicorn/Gunicorn
+   - Tokenizers
+   - Datasets
+
+3. Select an open-source Arabic-capable or multilingual LLM as the base model (7B–13B parameters recommended).  
+   Requirements:
+   - Strong Arabic support
+   - Fine-tuning friendly
+   - Self-hostable
+   - Efficient inference
+
+4. Download and load the base model into /model_base.
+
+============================================================
+PHASE 2 — DATA PIPELINE (KNOWLEDGE PRESERVATION)
+============================================================
+5. Build a dataset ingestion pipeline that can later import:
+   - Historical Abu Hashim outputs
+   - User prompts
+   - Corrections
+   - Writing samples (novels, articles, scripts, academic work)
+   - Style examples
+   - System prompts and behaviors
+
+6. Implement scripts to:
+   - Clean text
+   - Normalize Arabic
+   - Remove harmful or low-quality data
+   - Remove personal/sensitive information
+   - Format data into (input → output) pairs
+
+7. Save processed datasets into /dataset_processed in HuggingFace format.
+
+============================================================
+PHASE 3 — TRAINING PIPELINE (FINE-TUNING)
+============================================================
+8. Implement a full fine-tuning pipeline using:
+   - LoRA or QLoRA
+   - 4-bit/8-bit quantization
+   - Gradient checkpointing
+   - Mixed precision (fp16/bf16)
+   - Accelerate for distributed training
+
+9. Training pipeline must:
+   - Load the base model
+   - Load the processed dataset
+   - Train on Abu Hashim’s historical behavior
+   - Preserve style, tone, and writing quality
+   - Save LoRA weights into /model_finetune
+
+10. Add support for incremental training:
+    - Append new data
+    - Re-train without starting from zero
+
+============================================================
+PHASE 4 — INFERENCE SERVER (SELF-HOSTED)
+============================================================
+11. Build a FastAPI or Flask inference server in /api_server that:
+    - Loads the base model + LoRA weights
+    - Accepts POST requests with:
+      { "prompt": "...", "context": "...", "settings": {...} }
+    - Returns generated text
+    - Runs fully locally (no external API calls)
+
+12. Add:
+    - Token streaming
+    - Temperature, top_p, top_k controls
+    - Max tokens
+    - Safety filters
+
+13. Optimize inference using:
+    - 4-bit quantization
+    - FlashAttention (if supported)
+    - KV-cache reuse
+    - torch.compile
+
+============================================================
+PHASE 5 — EVALUATION & BENCHMARKING
+============================================================
+14. Create evaluation scripts to test:
+    - Arabic fluency
+    - Style consistency
+    - Novel writing quality
+    - Journalism structure
+    - Screenwriting format
+    - Academic correctness
+    - Hallucination rate
+    - Toxicity and safety
+
+15. Generate comparison reports between:
+    - Base model
+    - Fine-tuned Abu Hashim model
+
+============================================================
+PHASE 6 — SELF-LEARNING PREPARATION
+============================================================
+16. Add a modular system for future self-learning:
+    - /learning_buffer folder
+    - Scripts to validate and clean new data
+    - Scripts to merge new data into training dataset
+    - Scripts to trigger incremental fine-tuning
+
+17. Add an admin-triggered function:
+    “update_model()”
+    - Prepares new dataset
+    - Runs fine-tuning
+    - Saves updated weights
+
+============================================================
+PHASE 7 — BRANDING INTEGRATION
+============================================================
+18. Apply QalamAI identity colors (#0A1A2F and #D4AF37) to:
+    - README.md styling
+    - Documentation headers
+    - Admin dashboard UI
+    - API interface pages
+    - Any HTML/CSS/JS components
+    - Any visual diagrams or architecture charts
+
+19. Add a /branding folder containing:
+    - Color palette
+    - Typography guidelines
+    - Logo placeholders (empty for now)
+    - UI theme templates
+
+============================================================
+PHASE 8 — DOCUMENTATION
+============================================================
+20. Create full documentation in /docs including:
+    - Model architecture
+    - Dataset structure
+    - Training instructions
+    - Inference server usage
+    - How to update the model
+    - How to integrate with QalamAI later
+    - Branding guidelines using QalamAI colors
+
+============================================================
+CONSTRAINTS
+============================================================
+- Do NOT use GPT 5.2 or any proprietary LLM for inference.
+- All inference must be done using the open-source model.
+- The final Abu Hashim model must be fully independent.
+- The project must be production-ready and modular.
+- Preserve as much of Abu Hashim’s style and knowledge as possible.
+
+============================================================
+FINAL GOAL
+============================================================
+Deliver a complete, standalone, open-source-based Abu Hashim LLM project with:
+- Training pipeline
+- Inference server
+- Dataset pipeline
+- Evaluation tools
+- Branding integration
+- Documentation
+- No dependency on GPT
+- Ready for future integration into QalamAI.

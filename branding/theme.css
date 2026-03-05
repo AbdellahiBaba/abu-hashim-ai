@@ -1,0 +1,141 @@
+:root {
+  --qalam-dark-navy: #0A1A2F;
+  --qalam-light-navy: #142A45;
+  --qalam-gold: #D4AF37;
+  --qalam-dark-gold: #B8941E;
+  --qalam-light-gold: #E8C84A;
+  --qalam-white: #FFFFFF;
+  --qalam-off-white: #F5F5F0;
+  --qalam-light-gray: #E0E0E0;
+  --qalam-medium-gray: #9E9E9E;
+  --qalam-dark-gray: #333333;
+  --qalam-black: #000000;
+  --qalam-success: #2E7D32;
+  --qalam-warning: #F57F17;
+  --qalam-error: #C62828;
+  --qalam-info: #1565C0;
+  --qalam-gradient-primary: linear-gradient(135deg, #0A1A2F 0%, #142A45 100%);
+  --qalam-gradient-gold: linear-gradient(135deg, #D4AF37 0%, #E8C84A 100%);
+  --qalam-gradient-hero: linear-gradient(135deg, #0A1A2F 0%, #142A45 50%, #1A3A5C 100%);
+  --qalam-font-arabic: 'Noto Kufi Arabic', 'Amiri', serif;
+  --qalam-font-latin: 'Inter', system-ui, -apple-system, sans-serif;
+  --qalam-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --qalam-radius-sm: 4px;
+  --qalam-radius-md: 8px;
+  --qalam-radius-lg: 12px;
+  --qalam-radius-xl: 16px;
+  --qalam-shadow-sm: 0 1px 3px rgba(10, 26, 47, 0.12);
+  --qalam-shadow-md: 0 4px 6px rgba(10, 26, 47, 0.15);
+  --qalam-shadow-lg: 0 10px 25px rgba(10, 26, 47, 0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--qalam-font-latin);
+  background-color: var(--qalam-off-white);
+  color: var(--qalam-dark-gray);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--qalam-dark-navy);
+  font-weight: 600;
+}
+
+a {
+  color: var(--qalam-gold);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--qalam-dark-gold);
+}
+
+.qalam-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border: none;
+  border-radius: var(--qalam-radius-md);
+  font-family: var(--qalam-font-latin);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.qalam-btn-primary {
+  background: var(--qalam-gold);
+  color: var(--qalam-dark-navy);
+}
+
+.qalam-btn-primary:hover {
+  background: var(--qalam-dark-gold);
+}
+
+.qalam-btn-secondary {
+  background: var(--qalam-dark-navy);
+  color: var(--qalam-white);
+}
+
+.qalam-btn-secondary:hover {
+  background: var(--qalam-light-navy);
+}
+
+.qalam-btn-outline {
+  background: transparent;
+  color: var(--qalam-gold);
+  border: 2px solid var(--qalam-gold);
+}
+
+.qalam-btn-outline:hover {
+  background: var(--qalam-gold);
+  color: var(--qalam-dark-navy);
+}
+
+.qalam-card {
+  background: var(--qalam-white);
+  border-radius: var(--qalam-radius-lg);
+  box-shadow: var(--qalam-shadow-sm);
+  padding: 24px;
+  transition: box-shadow 0.2s ease;
+}
+
+.qalam-card:hover {
+  box-shadow: var(--qalam-shadow-md);
+}
+
+.qalam-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.qalam-badge-success {
+  background: #E8F5E9;
+  color: var(--qalam-success);
+}
+
+.qalam-badge-warning {
+  background: #FFF8E1;
+  color: var(--qalam-warning);
+}
+
+.qalam-badge-error {
+  background: #FFEBEE;
+  color: var(--qalam-error);
+}
+
+.qalam-badge-info {
+  background: #E3F2FD;
+  color: var(--qalam-info);
+}

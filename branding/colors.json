@@ -1,0 +1,33 @@
+{
+  "brand": "QalamAI",
+  "palette": {
+    "primary": {
+      "dark_navy": "#0A1A2F",
+      "gold": "#D4AF37"
+    },
+    "secondary": {
+      "light_navy": "#142A45",
+      "dark_gold": "#B8941E",
+      "light_gold": "#E8C84A"
+    },
+    "neutral": {
+      "white": "#FFFFFF",
+      "off_white": "#F5F5F0",
+      "light_gray": "#E0E0E0",
+      "medium_gray": "#9E9E9E",
+      "dark_gray": "#333333",
+      "black": "#000000"
+    },
+    "semantic": {
+      "success": "#2E7D32",
+      "warning": "#F57F17",
+      "error": "#C62828",
+      "info": "#1565C0"
+    }
+  },
+  "gradients": {
+    "primary": "linear-gradient(135deg, #0A1A2F 0%, #142A45 100%)",
+    "gold_accent": "linear-gradient(135deg, #D4AF37 0%, #E8C84A 100%)",
+    "hero": "linear-gradient(135deg, #0A1A2F 0%, #142A45 50%, #1A3A5C 100%)"
+  }
+}

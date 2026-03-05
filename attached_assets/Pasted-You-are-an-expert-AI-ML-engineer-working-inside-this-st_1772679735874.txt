@@ -1,0 +1,114 @@
+You are an expert AI/ML engineer working inside this standalone Abu Hashim LLM project.  
+IMPORTANT: The platform QalamAI.net is owned by the same developer and exists in the same Replit account.  
+This means QalamAI.net can export its GPT‑5.2 interaction logs, writing samples, and user prompts directly into this project for training purposes.
+
+Your task is to build a data‑collection and learning pipeline that allows the independent Abu Hashim model to learn from QalamAI’s GPT‑5.2 interactions, without depending on GPT for inference and without connecting the models directly.
+
+Goal:
+Create a system that collects, cleans, anonymizes, and structures QalamAI’s prompt → response interactions into high‑quality training data that can be used to accelerate the training of the independent Abu Hashim model.
+
+============================================================
+PHASE 1 — DATA INGESTION PIPELINE
+============================================================
+1. Create a module /qalam_bridge that accepts exported logs from QalamAI.net.  
+   These logs will contain:
+   - user prompts
+   - GPT‑5.2 responses
+   - corrections
+   - writing samples
+   - metadata (timestamps, categories)
+
+2. Build scripts to:
+   - Import JSON, CSV, or database exports from QalamAI.net
+   - Normalize Arabic text
+   - Remove personal or sensitive information
+   - Remove harmful or low‑quality content
+   - Format data into (input → output) pairs
+
+3. Convert all interactions into a unified dataset format:
+   {
+     "input": "<user prompt + context>",
+     "output": "<GPT‑5.2 response>",
+     "category": "<writing mode>",
+     "quality": "<auto score placeholder>"
+   }
+
+4. Save the processed dataset into /dataset_raw and /dataset_processed.
+
+============================================================
+PHASE 2 — QUALITY FILTERING & SCORING
+============================================================
+5. Implement a quality‑scoring script that:
+   - Removes hallucinations
+   - Removes incomplete responses
+   - Removes irrelevant or off‑topic outputs
+   - Flags high‑quality examples for training
+
+6. Add a scoring system based on:
+   - length
+   - coherence
+   - structure
+   - writing mode (novel, article, script, academic)
+   - formatting correctness
+
+7. Only keep high‑quality examples for fine‑tuning.
+
+============================================================
+PHASE 3 — TRAINING DATA PREPARATION
+============================================================
+8. Build a dataset builder that:
+   - Merges all high‑quality examples
+   - Splits into train/validation sets
+   - Tokenizes using the base model tokenizer
+   - Saves final training files into /dataset_processed
+
+9. Ensure the dataset is compatible with:
+   - LoRA fine‑tuning
+   - QLoRA
+   - Full fine‑tuning (optional)
+
+============================================================
+PHASE 4 — CONTINUOUS LEARNING PIPELINE
+============================================================
+10. Add a folder /learning_buffer where new QalamAI exports can be dropped.
+
+11. Create a script update_dataset.py that:
+    - Reads new exports
+    - Cleans and filters them
+    - Appends them to the main dataset
+    - Rebuilds the processed dataset
+
+12. Create a script update_model.py that:
+    - Loads the updated dataset
+    - Runs incremental fine‑tuning
+    - Saves updated LoRA weights into /model_finetune
+
+============================================================
+PHASE 5 — SAFETY & PRIVACY
+============================================================
+13. Ensure all data ingestion scripts:
+    - Remove names
+    - Remove emails
+    - Remove phone numbers
+    - Remove personal identifiers
+    - Remove sensitive content
+
+14. Ensure the independent Abu Hashim model:
+    - Does NOT call GPT‑5.2
+    - Does NOT depend on GPT for inference
+    - Only uses QalamAI logs as training examples
+
+============================================================
+PHASE 6 — DOCUMENTATION
+============================================================
+15. Document:
+    - How to export QalamAI.net logs
+    - How to import them into this project
+    - How to clean and process them
+    - How to trigger incremental training
+    - How to evaluate improvements
+
+============================================================
+FINAL GOAL
+============================================================
+Deliver a complete data‑learning bridge that allows the independent Abu Hashim model to learn from QalamAI.net’s GPT‑5.2 interactions, accelerating training while remaining fully independent and open‑source based.
