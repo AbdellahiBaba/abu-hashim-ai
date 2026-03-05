@@ -65,10 +65,17 @@ if os.path.isdir(STATIC_DIR):
 
 templates = Jinja2Templates(directory=TEMPLATES_DIR) if os.path.isdir(TEMPLATES_DIR) else None
 
-SESSION_SECRET = os.environ.get("SESSION_SECRET", "qalam-default-secret-change-me")
-ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "admin")
-ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "admin123")
+SESSION_SECRET = os.environ.get("SESSION_SECRET", "")
+ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "")
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "")
 SESSION_MAX_AGE = 86400
+
+if not SESSION_SECRET:
+    logger.warning("SESSION_SECRET not set — generating a random one. Set it for persistent sessions.")
+    SESSION_SECRET = uuid.uuid4().hex + uuid.uuid4().hex
+
+if not ADMIN_USERNAME or not ADMIN_PASSWORD:
+    logger.warning("ADMIN_USERNAME/ADMIN_PASSWORD not set — dashboard login will be disabled.")
 
 serializer = URLSafeTimedSerializer(SESSION_SECRET)
 
@@ -130,15 +137,18 @@ async def login_page(request: Request):
 
 @app.post("/login")
 async def login_submit(request: Request, username: str = Form(...), password: str = Form(...)):
-    if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+    if ADMIN_USERNAME and ADMIN_PASSWORD and username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
         token = _create_session_token(username)
         response = RedirectResponse(url="/", status_code=302)
+        is_https = request.url.scheme == "https" or request.headers.get("x-forwarded-proto") == "https"
         response.set_cookie(
             key="qalam_session",
             value=token,
             max_age=SESSION_MAX_AGE,
             httponly=True,
+            secure=is_https,
             samesite="lax",
+            path="/",
         )
         return response
     if templates:
@@ -155,7 +165,8 @@ async def logout():
 
 @app.get("/", response_class=HTMLResponse)
 async def root(request: Request):
-    if not _is_authenticated(request):
+    auth_configured = bool(ADMIN_USERNAME and ADMIN_PASSWORD)
+    if auth_configured and not _is_authenticated(request):
         return RedirectResponse(url="/login", status_code=302)
     if templates and os.path.exists(os.path.join(TEMPLATES_DIR, "dashboard.html")):
         return templates.TemplateResponse("dashboard.html", {"request": request})
